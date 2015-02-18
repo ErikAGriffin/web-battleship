@@ -7,3 +7,8 @@ Feature: Starting a Game
     Given I am on the homepage
     When I click 'New Game'
     Then I should see "Your name please?"
+
+  Scenario: I've Signed Up
+    Given I have entered my name
+    When I click 'Enter Battle'
+    Then I should see the Board.
