@@ -8,14 +8,14 @@ require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
 
-Capybara.app = Battleship
+Capybara.app = BattleshipServer
 
-class BattleshipWorld
+class BattleshipServerWorld
   include Capybara::DSL
   include RSpec::Expectations
   include RSpec::Matchers
 end
 
 World do
-  BattleshipWorld.new
+  BattleshipServerWorld.new
 end

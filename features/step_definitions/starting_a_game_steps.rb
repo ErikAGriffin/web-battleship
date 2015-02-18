@@ -1,11 +1,11 @@
 Given(/^I am on the homepage$/) do
-  pending # Time to code
+  visit('/')
 end
 
 When(/^I click 'New Game'$/) do
-  pending # express the regexp above with the code you wish you had
+  click_link('New Game')
 end
 
-Then(/^I should see "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see "(.*?)"$/) do |message|
+  expect(message).to eq "Your name please?"
 end

@@ -3,7 +3,11 @@ require 'sinatra/base'
 
 class BattleshipServer < Sinatra::Base
   get '/' do
-    'Hello Battleship!'
+    erb :index
+  end
+
+  get '/newgame' do
+    "Your name please?"
   end
 
   # start the server if ruby file executed directly
