@@ -1,3 +1,22 @@
+<style type="text/css">
+
+    table {
+    margin: 0 auto;
+    color:white;
+
+    }
+
+    th {
+    padding: 5px;
+    font-size: 2em;
+    }
+
+    td {
+    border: 1px solid white;
+    width:4em;
+    height: 4em;
+    }
+</style>
 
 <h1>Welcome <%=@name%>, your fleet is ready for deployment.</h1>
 
@@ -5,11 +24,22 @@
 <table>
     <tr class='table_header'>
         <th></th>
-        <% @board1.y_row.each do |element| %>
-
+        <% @board1.x_row.each do |element| %>
             <th> <%= element %> </th>
-
         <% end %>
-
     </tr>
+
+
+    <% @board1.y_row.each do |element| %>
+
+        <tr>
+            <th> <%= element %> </th>
+            <% @board1.x_row.size.times do %>
+                <td> :SEA </td>
+            <% end %>
+
+        </tr>
+
+
+    <% end %>
 </table>
