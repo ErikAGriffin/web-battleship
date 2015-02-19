@@ -4,7 +4,12 @@
 
 <table>
     <tr class='table_header'>
+        <th></th>
+        <% @board1.y_row.each do |element| %>
 
+            <th> <%= element %> </th>
+
+        <% end %>
 
     </tr>
 </table>

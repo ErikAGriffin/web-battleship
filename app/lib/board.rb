@@ -1,6 +1,10 @@
 class Board
 
-  attr_reader :grid
+  # !! ** !!
+  # Consider refactoring board to take an argument of size,
+  # and then build the x and y rows based on that size.
+
+  attr_reader :grid, :y_row, :x_row
 
   def initialize
 

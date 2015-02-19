@@ -1,3 +1,4 @@
+require_relative 'lib/player'
 require_relative 'lib/board'
 require 'sinatra/base'
 
@@ -10,7 +11,12 @@ class BattleshipServer < Sinatra::Base
 
   enable :sessions
 
+  # New Game.. is there a way to do this
+  # everytime the /newgame page is visited?
+
   board1 = Board.new
+  player1 = Player.new(homeboard: board1)
+
 
   get '/' do
     erb :index
@@ -25,7 +31,9 @@ class BattleshipServer < Sinatra::Base
   post '/play' do
 
     @name = params[:name]
-    puts board1.inspect
+
+    @board1 = board1
+
 
     erb :play
   end
