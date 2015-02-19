@@ -7,6 +7,8 @@ When(/^I click 'New Game'$/) do
 end
 
 Then(/^I should see "(.*?)"$/) do |message|
+  # !! ** !!
+  # Whoops, this test will always pass!
   expect(message).to eq "Your name please?"
 end
 
@@ -14,7 +16,7 @@ end
 # scenarios?
 
 Given(/^I have entered my name$/) do
-
+  pending
 end
 
 When(/^I click 'Enter Battle'$/) do

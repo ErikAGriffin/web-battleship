@@ -28,22 +28,6 @@ class Board
     grid[origin]
   end
 
-  def place_vertical(ship, origin)
-    ship.size.times do
-      @grid[origin] = ship
-      origin = vert_next_ship_cell(origin)
-      puts "Ze origin is now #{origin}"
-    end
-  end
-
-  def place_horizontal(ship, origin)
-    ship.size.times do
-      @grid[origin] = ship
-      origin = horz_next_ship_cell(origin)
-      puts "Ze origin is now #{origin}"
-    end
-  end
-
   def place(ship, origin)
     return false if !legal_placement?(ship, origin)
     ship.place
@@ -67,6 +51,20 @@ class Board
       end
     end
     board_hash
+  end
+
+  def place_vertical(ship, origin)
+    ship.size.times do
+      @grid[origin] = ship
+      origin = vert_next_ship_cell(origin)
+    end
+  end
+
+  def place_horizontal(ship, origin)
+    ship.size.times do
+      @grid[origin] = ship
+      origin = horz_next_ship_cell(origin)
+    end
   end
 
   def vert_next_ship_cell(coordinate)

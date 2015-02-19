@@ -26,10 +26,6 @@ class Ship
     @placed
   end
 
-  def portrait?
-    @portrait_orientation
-  end
-
   def change_orientation
     @orientation == :vertical ? @orientation = :horizontal : @orientation = :vertical if !placed?
   end
