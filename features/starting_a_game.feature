@@ -10,5 +10,5 @@ Feature: Starting a Game
 
   Scenario: I've Signed Up
     Given I have entered my name
-    When I click 'Enter Battle'
+    When I click "Prepare for Battle"
     Then I should see the Board.

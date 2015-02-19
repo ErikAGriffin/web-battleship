@@ -1,7 +1,12 @@
+require_relative 'lib/board'
 require 'sinatra/base'
 
 
 class BattleshipServer < Sinatra::Base
+
+
+
+
 
   enable :sessions
 
@@ -9,12 +14,19 @@ class BattleshipServer < Sinatra::Base
     erb :index
   end
 
-  post '/' do
-    erb :index
+  get '/newgame' do
+
+    @board1 = Board.new
+
+    erb :newgame
   end
 
-  get '/newgame' do
-    erb :newgame
+  post '/play' do
+
+    @name = params[:name]
+    puts @board1.inspect
+
+    erb :play
   end
 
   # start the server if ruby file executed directly
