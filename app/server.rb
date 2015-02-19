@@ -10,13 +10,14 @@ class BattleshipServer < Sinatra::Base
 
   enable :sessions
 
+  board1 = Board.new
+
   get '/' do
     erb :index
   end
 
   get '/newgame' do
 
-    @board1 = Board.new
 
     erb :newgame
   end
@@ -24,7 +25,7 @@ class BattleshipServer < Sinatra::Base
   post '/play' do
 
     @name = params[:name]
-    puts @board1.inspect
+    puts board1.inspect
 
     erb :play
   end

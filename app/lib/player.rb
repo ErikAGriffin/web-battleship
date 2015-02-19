@@ -1,9 +1,10 @@
 class Player
 
-  attr_reader :homeboard
+  attr_reader :name, :homeboard
 
-  def initialize(homeboard: "No Board")
+  def initialize(name: "Player1", homeboard: "No Board")
     @homeboard = homeboard
+    @name = name
   end
 
   def rotate(ship)
