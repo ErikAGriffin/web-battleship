@@ -1,4 +1,4 @@
-require 'game'
+require './app/model/game'
 
 describe 'Game' do
 
