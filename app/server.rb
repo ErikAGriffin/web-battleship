@@ -15,5 +15,9 @@ class Server < Hobbit::Base
     render 'index'
   end
 
+  get '/game-setup' do
+    render 'newgame'
+  end
+
 
 end

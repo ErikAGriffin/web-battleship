@@ -3,8 +3,9 @@
   <head></head>
 
   <body>
-
-    {{content}}
+    <main>
+     {{content}}
+    </main>
 
   </body>
 

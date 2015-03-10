@@ -1,0 +1,7 @@
+<p class="player_message">
+Sorry, no one allowed on board without identification.
+</p>
+<input id="player_name" type="text" name="player_name" />
+<a href="#">Make Your Mark</a>
+
+
