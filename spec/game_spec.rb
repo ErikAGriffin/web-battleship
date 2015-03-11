@@ -30,6 +30,10 @@ describe 'Game' do
     expect{game.add_player(player3)}.to raise_error 'Game is full!'
   end
 
+  it 'Will respond true to .full? if game is full' do
+    expect(game.full?).to eq true
+  end
+
   it 'knows who the active_player is' do
     expect(game.active_player).to eq player1
   end

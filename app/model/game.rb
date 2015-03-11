@@ -22,8 +22,12 @@ class Game
   end
 
   def add_player(player)
-    raise "Game is full!" if player2 != :no_player
+    raise "Game is full!" if full?
     player1 == :no_player ? @player1 = player : @player2 = player
+  end
+
+  def full?
+    player2 != :no_player
   end
 
   def shoot(origin)

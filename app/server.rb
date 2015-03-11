@@ -4,8 +4,7 @@ require 'data_mapper'
 require_relative 'custom-hobbit'
 require_relative 'data_mapper_setup'
 
-# Hmm where best to put these..
-require_relative 'model/board'
+require_relative 'game_setup'
 
 
 class Server < Hobbit::Base
@@ -24,11 +23,12 @@ class Server < Hobbit::Base
 
   get '/game-setup' do
 
-
-
     board = Board.new
-
-    render 'boardsetup', board: board
+    puts "---- #{params[:name]}"
+    player = Player.new(name:"Hi there", homeboard:board)
+    game = create_game
+    game.add_player(player)
+    render 'boardsetup', game: game
   end
 
 end
