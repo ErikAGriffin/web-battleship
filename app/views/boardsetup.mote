@@ -7,17 +7,48 @@
 
 <table>
   <tr>
-    <td class="label_cell"></td>
-  % board.x_row.each do |x|
-    <td class="label_cell">{{x}}</td>
-  % end
+    <td class="label cell"></td>
+    % board.x_row.each do |x|
+      <td class="label cell">{{x}}</td>
+    % end
   </tr>
   % board.y_row.each do |y|
-    <tr>
-      <td class="label_cell">{{y}}</td>
-      % board.x_row.each do |cell|
-      <td></td>
-      % end
-    </tr>
+  <tr>
+    <td class="label cell">{{y}}</td>
+    % board.x_row.each do |cell|
+      <td class="sea cell"></td>
+    % end
+  </tr>
   % end
 </table>
+
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script>
+$(document).ready(function() {
+  var grid = document.getElementsByClassName('sea_cell');
+
+    for (var i=0;i<grid.length;i++) {
+
+      // console.log(grid[i]);
+
+    }
+
+
+  $('.cell').on('mouseover', function() {
+
+    // Lol... it changes it for every single .cell
+
+    $('td.cell').toggleClass('sea');
+    $('td.cell').toggleClass('boat');
+
+  });
+
+
+
+}); // end document ready
+
+
+
+
+
+</script>
