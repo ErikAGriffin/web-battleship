@@ -21,11 +21,9 @@ class Server < Hobbit::Base
     render 'namecreation'
   end
 
-  get '/game-setup' do
-
+  post '/game-setup' do
     board = Board.new
-    puts "---- #{params[:name]}"
-    player = Player.new(name:"Hi there", board:board)
+    player = Player.new(name: params[:player_name], board:board)
     game = create_game
     game.add_player(player)
     render 'boardsetup', game: game

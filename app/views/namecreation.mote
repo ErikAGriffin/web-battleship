@@ -1,7 +1,9 @@
 <p class="player_message">
 Sorry, no one allowed on board without identification.
 </p>
-<input id="player_name" type="text" name="player_name" />
-<a href="/game-setup">Make Your Mark</a>
+<form action="/game-setup" method="POST">
+  <input id="player_name" type="text" name="player_name" />
+  <input type="submit" value="Make Your Mark" />
+</form>
 
 

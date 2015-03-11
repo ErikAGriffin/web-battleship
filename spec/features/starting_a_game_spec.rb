@@ -28,5 +28,5 @@ end
 def prepare_game
   start_game
   fill_in 'player_name', with: 'Marko Ramius'
-  click_link "Make Your Mark"
+  click_button "Make Your Mark"
 end
