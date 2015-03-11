@@ -30,21 +30,17 @@ $(document).ready(function() {
 
 
 
-  $('.cell').on('mouseover', show_ship);
-  $('.cell').on('mouseout', show_ship);
-
-
+  $('.cell').on('mouseover', function() {
+    show_ship(this, 5);
+  });
+  $('.cell').on('mouseout', function() {
+    show_ship(this, 5);
+  });
 
 
 }); // end document ready
 
-var show_ship = function() {
-
-  complete_ship(this, 5);
-
-};
-
-var complete_ship = function(cell, ship_size) {
+var show_ship = function(cell, ship_size) {
   var grid = document.getElementsByClassName('cell');
   for (var i=0;i<grid.length;i++) {
     if (cell === grid[i]) {
