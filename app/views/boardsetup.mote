@@ -1,7 +1,8 @@
+% current_ship = game.p1ships[:aircraft_carrier]
 <p class="player_message">
   Apologies Captain, one can't be too careful these days.
   <br>
-  Where should we position your Aircraft Carrier?
+  Where should we position your {{current_ship.name}}?
 </p>
 
 % board = game.player1.board
@@ -25,33 +26,56 @@
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>
+
+
 $(document).ready(function() {
 
+  var grid = document.getElementsByClassName('cell');
 
+
+  // Why is this undefined if I put the method within document.ready?
+
+  //grid_clean();
+
+  // Weird, now its never having those stray blocks anyway..
 
 
   $('.cell').on('mouseover', function() {
-    show_ship(this, 5);
+    show_ship(this, {{current_ship.size}});
   });
   $('.cell').on('mouseout', function() {
-    show_ship(this, 5);
+    show_ship(this, {{current_ship.size}});
   });
+
+
+
+  var show_ship = function(cell, ship_size) {
+    for (var i=0;i<grid.length;i++) {
+      if (cell === grid[i]) {
+        for (var j=0;j<ship_size;j++) {
+          $(grid[i-j*10]).toggleClass('sea');
+          $(grid[i-j*10]).toggleClass('boat');
+        }
+
+      }
+    }
+  }; // end show_ship
 
 
 }); // end document ready
 
-var show_ship = function(cell, ship_size) {
-  var grid = document.getElementsByClassName('cell');
-  for (var i=0;i<grid.length;i++) {
-    if (cell === grid[i]) {
-      for (var j=0;j<ship_size;j++) {
-        $(grid[i-j*10]).toggleClass('sea');
-        $(grid[i-j*10]).toggleClass('boat');
+  var grid_clean = function() {
+    console.log('Grid cleaned!');
+    var grid = document.getElementsByClassName('cell');
+    for (var i=0;i<grid.lenth;i++) {
+      if (grid[i].hasClass('boat')) {
+        $(grid[i].toggleClass('sea'));
+        $(grid[i].toggleClass('boat'));
       }
-
     }
-  }
-};
+  };
+
+
 
 
 
