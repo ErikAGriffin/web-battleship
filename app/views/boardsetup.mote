@@ -1,0 +1,23 @@
+<p class="player_message">
+  Apologies Captain, one can't be too careful these days.
+  <br>
+  Where should we position your Aircraft Carrier?
+</p>
+
+
+<table>
+  <tr>
+    <td class="label_cell"></td>
+  % board.x_row.each do |x|
+    <td class="label_cell">{{x}}</td>
+  % end
+  </tr>
+  % board.y_row.each do |y|
+    <tr>
+      <td class="label_cell">{{y}}</td>
+      % board.x_row.each do |cell|
+      <td></td>
+      % end
+    </tr>
+  % end
+</table>
