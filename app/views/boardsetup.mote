@@ -4,7 +4,7 @@
   Where should we position your Aircraft Carrier?
 </p>
 
-% board = game.player1.homeboard
+% board = game.player1.board
 
 <table>
   <tr>

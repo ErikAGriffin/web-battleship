@@ -25,7 +25,7 @@ class Server < Hobbit::Base
 
     board = Board.new
     puts "---- #{params[:name]}"
-    player = Player.new(name:"Hi there", homeboard:board)
+    player = Player.new(name:"Hi there", board:board)
     game = create_game
     game.add_player(player)
     render 'boardsetup', game: game

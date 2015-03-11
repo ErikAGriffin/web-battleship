@@ -31,7 +31,7 @@ class Game
   end
 
   def shoot(origin)
-    shot = opponent.homeboard.shoot(origin)
+    shot = opponent.board.shoot(origin)
     if game_over?
       return declare_winner
     else

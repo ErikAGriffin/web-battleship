@@ -8,12 +8,12 @@ describe 'Player' do
   # them directly.
 
 
-  let(:homeboard) {double :board, place: true}
-  let(:player) {Player.new(homeboard: homeboard)}
+  let(:board) {double :board, place: true}
+  let(:player) {Player.new(board: board)}
   let(:ship) {double :ship}
 
   it 'has its home board' do
-    expect(player.homeboard).to eq homeboard
+    expect(player.board).to eq board
   end
 
   it 'can change a ships orientation, before placement' do
@@ -23,7 +23,7 @@ describe 'Player' do
 
   it 'can place ships on home board' do
     origin = [1,:B]
-    expect(homeboard).to receive(:place).with(ship, origin).and_return(true)
+    expect(board).to receive(:place).with(ship, origin).and_return(true)
     player.place(ship, origin)
   end
 

@@ -6,8 +6,8 @@ describe 'Game' do
   let(:p2ship) {double :ship, sunk?: false}
   let(:p1board) {double :board}
   let(:p2board) {double :board}
-  let(:player1) {double :player, homeboard: p1board}
-  let(:player2) {double :player, homeboard: p2board}
+  let(:player1) {double :player, board: p1board}
+  let(:player2) {double :player, board: p2board}
   let(:game) {Game.new(players: [player1,player2], ships:[{ship1: p1ship},{ship2: p2ship}])}
 
   let(:origin) {[1,:B]}

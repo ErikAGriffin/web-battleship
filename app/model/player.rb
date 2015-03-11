@@ -1,9 +1,9 @@
 class Player
 
-  attr_reader :name, :homeboard
+  attr_reader :name, :board
 
-  def initialize(name: "Player1", homeboard: "No Board")
-    @homeboard = homeboard
+  def initialize(name: "Player1", board: "No Board")
+    @board = board
     @name = name
   end
 
@@ -12,7 +12,7 @@ class Player
   end
 
   def place(ship, origin)
-    @homeboard.place(ship, origin)
+    @board.place(ship, origin)
   end
 
 
