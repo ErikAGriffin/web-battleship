@@ -24,6 +24,8 @@ class Server < Hobbit::Base
 
   get '/game-setup' do
 
+
+
     board = Board.new
 
     render 'boardsetup', board: board

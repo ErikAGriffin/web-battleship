@@ -34,12 +34,10 @@ $(document).ready(function() {
     }
 
 
-  $('.cell').on('mouseover', function() {
+  $('.cell.sea').on('mouseover', function() {
 
-    // Lol... it changes it for every single .cell
-
-    $('td.cell').toggleClass('sea');
-    $('td.cell').toggleClass('boat');
+    $(this).toggleClass('sea');
+    $(this).toggleClass('boat');
 
   });
 

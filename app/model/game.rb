@@ -2,7 +2,7 @@ class Game
 
   attr_reader :player1, :player2, :active_player
 
-  def initialize(players: ["Player1","Player2"], ships: ["{P1 Ships}","[P2 Ships]"])
+  def initialize(players: [:no_player,:no_player], ships: [:"{no_ships}",:"{no_ships}"])
     @player1 = players.first
     @player2 = players.last
     @p1ships = ships.first
@@ -19,6 +19,11 @@ class Game
 
   def p2ships
     @p2ships
+  end
+
+  def add_player(player)
+    raise "Game is full!" if player2 != :no_player
+    player1 == :no_player ? @player1 = player : @player2 = player
   end
 
   def shoot(origin)

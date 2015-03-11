@@ -12,9 +12,22 @@ describe 'Game' do
 
   let(:origin) {[1,:B]}
 
-  it 'initializes with 2 players' do
+  it 'Can initialize with 2 players' do
     expect(game.player1).to eq player1
     expect(game.player2).to eq player2
+  end
+
+  it 'Can initialize with 0 players, and have players added' do
+    game2 = Game.new
+    game2.add_player(player1)
+    game2.add_player(player2)
+    expect(game2.player1).to eq player1
+    expect(game2.player2).to eq player2
+  end
+
+  it 'Will raise an error if a player is added to a full game' do
+    player3 = double :player
+    expect{game.add_player(player3)}.to raise_error 'Game is full!'
   end
 
   it 'knows who the active_player is' do
