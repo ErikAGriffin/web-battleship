@@ -8,14 +8,14 @@
 
 <table>
   <tr>
-    <td class="label cell"></td>
+    <td class="label"></td>
     % board.x_row.each do |x|
-      <td class="label cell">{{x}}</td>
+      <td class="label">{{x}}</td>
     % end
   </tr>
   % board.y_row.each do |y|
   <tr>
-    <td class="label cell">{{y}}</td>
+    <td class="label">{{y}}</td>
     % board.x_row.each do |cell|
       <td class="sea cell"></td>
     % end
@@ -26,27 +26,36 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script>
 $(document).ready(function() {
-  var grid = document.getElementsByClassName('sea_cell');
-
-    for (var i=0;i<grid.length;i++) {
-
-      // console.log(grid[i]);
-
-    }
 
 
-  $('.cell.sea').on('mouseover', function() {
 
-    $(this).toggleClass('sea');
-    $(this).toggleClass('boat');
 
-  });
+  $('.cell').on('mouseover', show_ship);
+  $('.cell').on('mouseout', show_ship);
+
 
 
 
 }); // end document ready
 
+var show_ship = function() {
 
+  complete_ship(this, 5);
+
+};
+
+var complete_ship = function(cell, ship_size) {
+  var grid = document.getElementsByClassName('cell');
+  for (var i=0;i<grid.length;i++) {
+    if (cell === grid[i]) {
+      for (var j=0;j<ship_size;j++) {
+        $(grid[i-j*10]).toggleClass('sea');
+        $(grid[i-j*10]).toggleClass('boat');
+      }
+
+    }
+  }
+};
 
 
 
