@@ -15,7 +15,7 @@
   <tr>
     <td class="label">{{y}}</td>
     % board.x_row.each do |cell|
-      <td class="sea cell"></td>
+      <td class="sea cell" id="{{y}}{{cell}}"></td>
     % end
   </tr>
   % end
@@ -29,38 +29,46 @@
 
 $(document).ready(function() {
 
+  console.log("I've been called to duty");
+
   % ships_array = []
-  % ships.each_value {|ship| ships_array << ship}
-  % current_ship = ships_array.delete_at(0)
+  % if ships_array == []
+    % puts "AS HAVE I!"
+    % ships.each_value {|ship| ships_array << ship}
+    % current_ship = ships_array.delete_at(0)
+  % end
+
 
   var grid = document.getElementsByClassName('cell');
+
+  var ship_locations = new Object();
 
   $('#ship_name').text("{{current_ship.name}}");
 
 
-
-  // Why is this undefined if I put the method within document.ready?
-  //grid_clean();
-  // Weird, now its never having those stray blocks anyway..
-
   //..Phantom Ship Display
-  $('.cell').on('mouseover', function() {
+  $('.sea').on('mouseover', function() {
     show_ship(this, {{current_ship.size}});
   });
-  $('.cell').on('mouseout', function() {
+  $('.sea').on('mouseout', function() {
     show_ship(this, {{current_ship.size}});
   });
 
   //..Placing a ship
 
   $('.cell').on('click', function() {
-
-    console.log("AAHHHH!");
-
+    console.log("{{current_ship.name}}");
+    ship_locations.{{ships.key(current_ship)}} = $(this).attr('id');
+    place_ship(this, {{current_ship.size}});
+    % current_ship = ships_array.delete_at(0);
+    console.log("{{current_ship.name}}");
   });
 
 
   // Functions
+
+  // I feel like now that I've added grid ID's to each cell,
+  // I no longer have to iterate over the grid..
 
   var show_ship = function(cell, ship_size) {
     for (var i=0;i<grid.length;i++) {
@@ -73,6 +81,10 @@ $(document).ready(function() {
       }
     }
   }; // end show_ship
+
+  var place_ship = function(cell, ship_size) {
+    show_ship(cell, ship_size);
+  }; // end place_ship
 
 
 }); // end document ready
