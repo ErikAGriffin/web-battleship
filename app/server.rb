@@ -12,6 +12,7 @@ class Server < Hobbit::Base
   include Hobbit::Session
 
 
+  running_games = []
 
   get '/' do
     render 'index'
@@ -22,11 +23,9 @@ class Server < Hobbit::Base
   end
 
   post '/game-setup' do
-    board = Board.new
-    player = Player.new(name: params[:player_name], board:board)
     game = create_game
-    game.add_player(player)
-    render 'boardsetup', game: game
+    running_games << game.add_player(create_player)
+    render 'boardsetup', board: game.player1.board, ships: game.p1ships
   end
 
 end

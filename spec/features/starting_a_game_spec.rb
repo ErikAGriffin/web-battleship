@@ -14,7 +14,7 @@ feature 'Starting a Game' do
   end
 
   scenario 'Preparing your ships' do
-    prepare_game
+    prepare_ships
   end
 
 
@@ -29,4 +29,9 @@ def prepare_game
   start_game
   fill_in 'player_name', with: 'Marko Ramius'
   click_button "Make Your Mark"
+end
+
+def prepare_ships
+  prepare_game
+
 end

@@ -24,6 +24,7 @@ class Game
   def add_player(player)
     raise "Game is full!" if full?
     player1 == :no_player ? @player1 = player : @player2 = player
+    self
   end
 
   def full?

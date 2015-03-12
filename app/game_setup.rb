@@ -11,6 +11,12 @@ def create_game
   return game
 end
 
+def create_player
+  board = Board.new
+  name = params[:name] if params[:name]
+  player = Player.new(name:name, board:board)
+end
+
 def make_ships
   ship_hash = {
     aircraft_carrier: Ship.aircraft_carrier,

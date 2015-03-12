@@ -1,11 +1,8 @@
-% current_ship = game.p1ships[:aircraft_carrier]
 <p class="player_message">
-  Apologies Captain, one can't be too careful these days.
+  <span>Apologies Captain, one can't be too careful these days.</span>
   <br>
-  Where should we position your {{current_ship.name}}?
+  Where should we position your <span id="ship_name"></span>?
 </p>
-
-% board = game.player1.board
 
 <table>
   <tr>
@@ -28,18 +25,25 @@
 <script>
 
 
+
+
 $(document).ready(function() {
+
+  % ships_array = []
+  % ships.each_value {|ship| ships_array << ship}
+  % current_ship = ships_array.delete_at(0)
 
   var grid = document.getElementsByClassName('cell');
 
+  $('#ship_name').text("{{current_ship.name}}");
+
+
 
   // Why is this undefined if I put the method within document.ready?
-
   //grid_clean();
-
   // Weird, now its never having those stray blocks anyway..
 
-
+  //..Phantom Ship Display
   $('.cell').on('mouseover', function() {
     show_ship(this, {{current_ship.size}});
   });
@@ -47,7 +51,16 @@ $(document).ready(function() {
     show_ship(this, {{current_ship.size}});
   });
 
+  //..Placing a ship
 
+  $('.cell').on('click', function() {
+
+    console.log("AAHHHH!");
+
+  });
+
+
+  // Functions
 
   var show_ship = function(cell, ship_size) {
     for (var i=0;i<grid.length;i++) {
