@@ -22,20 +22,21 @@
 </table>
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+
 <script>
-
-
-
-
 $(document).ready(function() {
 
-
   var ships_array = [];
+  var grid = document.getElementsByClassName('cell');
+  var ship_locations = new Object();
+  var hover_cell = ""
 
   % ships.each_value do |ship|
     var ship = {
       name: '{{ship.name}}',
       size: {{ship.size}},
+      orientation: 'vertical',
       id: '{{ships.key(ship)}}'
     }
     ships_array.push(ship);
@@ -43,30 +44,50 @@ $(document).ready(function() {
 
   var current_ship = ships_array.shift();
 
-  console.log(JSON.stringify(current_ship));
-
-  var grid = document.getElementsByClassName('cell');
-
-  var ship_locations = new Object();
-
   $('#ship_name').text(current_ship.name);
 
 
   //..Phantom Ship Display
+
   $('.sea').on('mouseover', function() {
-    show_ship(this, current_ship.size);
+    hover_cell = $(this).attr('id');
+    if (isVertical(current_ship)) {
+      show_vertical_ship(this, current_ship.size);
+    }
+    else {
+
+    }
   });
   $('.sea').on('mouseout', function() {
-    show_ship(this, current_ship.size);
+    if (isVertical(current_ship)) {
+      show_vertical_ship(this, current_ship.size);
+    }
+    else {
+
+    }
+  });
+
+  //..Rotate Ship
+  $(document).keyup(function(event) {
+    if (event.which == 32) {
+      if (isVertical(current_ship)) {
+        clean_grid();
+        current_ship.orientation = 'horizontal';}
+      else {
+        show_vertical_ship($("#"+hover_cell), current_ship.size);
+        current_ship.orientation = 'vertical';
+      }
+    }
+
   });
 
   //..Placing a ship
 
-  $('.cell').on('click', function() {
-    console.log(current_ship.name);
-    ship_locations[current_ship.id] = $(this).attr('id');
+  $('.sea').on('click', function() {
     place_ship(this, current_ship.size);
-    console.log(JSON.stringify(ship_locations));
+    ship_locations[current_ship.id] = $(this).attr('id');
+    current_ship = ships_array.shift();
+    $('#ship_name').text(current_ship.name);
   });
 
 
@@ -75,38 +96,43 @@ $(document).ready(function() {
   // I feel like now that I've added grid ID's to each cell,
   // I no longer have to iterate over the grid..
 
-  var show_ship = function(cell, ship_size) {
+  var isVertical = function(ship) {
+    return ship.orientation === 'vertical';
+  }
+
+  var show_vertical_ship = function(cell, ship_size) {
     for (var i=0;i<grid.length;i++) {
-      if (cell === grid[i]) {
+      if ($(cell).attr('id') === $(grid[i]).attr('id')) {
         for (var j=0;j<ship_size;j++) {
           $(grid[i-j*10]).toggleClass('sea');
           $(grid[i-j*10]).toggleClass('boat');
         }
-
       }
     }
-  }; // end show_ship
+  }; // end show_vertical_ship
 
   var place_ship = function(cell, ship_size) {
-    show_ship(cell, ship_size);
-  }; // end place_ship
-
-
-}); // end document ready
-
-  var grid_clean = function() {
-    console.log('Grid cleaned!');
-    var grid = document.getElementsByClassName('cell');
-    for (var i=0;i<grid.lenth;i++) {
-      if (grid[i].hasClass('boat')) {
-        $(grid[i].toggleClass('sea'));
-        $(grid[i].toggleClass('boat'));
+    for (var i=0;i<grid.length;i++) {
+      if (cell === grid[i]) {
+        for (var j=0;j<ship_size;j++) {
+          $(grid[i-j*10]).toggleClass('sea');
+          $(grid[i-j*10]).toggleClass('permaboat');
+        }
       }
     }
-  };
+  }; // end place_ship
 
+  var clean_grid = function() {
+    for (var i=0;i<grid.length;i++) {
+      if ($(grid[i]).hasClass('boat')) {
+        $(grid[i]).toggleClass('sea');
+        $(grid[i]).toggleClass('boat');
+      }
+    }
+    console.log("Grid cleaned!");
+  }; // clean_grid
 
-
+}); // end document ready
 
 
 </script>
