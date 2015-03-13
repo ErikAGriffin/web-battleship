@@ -29,39 +29,44 @@
 
 $(document).ready(function() {
 
-  console.log("I've been called to duty");
 
-  % ships_array = []
-  % if ships_array == []
-    % puts "AS HAVE I!"
-    % ships.each_value {|ship| ships_array << ship}
-    % current_ship = ships_array.delete_at(0)
+  var ships_array = [];
+
+  % ships.each_value do |ship|
+    var ship = {
+      name: '{{ship.name}}',
+      size: {{ship.size}},
+      id: '{{ships.key(ship)}}'
+    }
+    ships_array.push(ship);
   % end
 
+  var current_ship = ships_array.shift();
+
+  console.log(JSON.stringify(current_ship));
 
   var grid = document.getElementsByClassName('cell');
 
   var ship_locations = new Object();
 
-  $('#ship_name').text("{{current_ship.name}}");
+  $('#ship_name').text(current_ship.name);
 
 
   //..Phantom Ship Display
   $('.sea').on('mouseover', function() {
-    show_ship(this, {{current_ship.size}});
+    show_ship(this, current_ship.size);
   });
   $('.sea').on('mouseout', function() {
-    show_ship(this, {{current_ship.size}});
+    show_ship(this, current_ship.size);
   });
 
   //..Placing a ship
 
   $('.cell').on('click', function() {
-    console.log("{{current_ship.name}}");
-    ship_locations.{{ships.key(current_ship)}} = $(this).attr('id');
-    place_ship(this, {{current_ship.size}});
-    % current_ship = ships_array.delete_at(0);
-    console.log("{{current_ship.name}}");
+    console.log(current_ship.name);
+    ship_locations[current_ship.id] = $(this).attr('id');
+    place_ship(this, current_ship.size);
+    console.log(JSON.stringify(ship_locations));
   });
 
 
