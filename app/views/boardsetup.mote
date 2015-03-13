@@ -25,6 +25,12 @@
 
 
 <script>
+
+  // TODO:
+  // Make the ship locations properites hold arrays of exactly two items:
+  // [origin, orientation]
+
+
 $(document).ready(function() {
 
   var ships_array = [];
@@ -46,16 +52,14 @@ $(document).ready(function() {
 
   $('#ship_name').text(current_ship.name);
 
-
   //..Phantom Ship Display
-
   $('.sea').on('mouseover', function() {
-    hover_cell = $(this).attr('id');
+    hover_cell = "#"+$(this).attr('id');
     if (isVertical(current_ship)) {
       show_vertical_ship(this, current_ship.size);
     }
     else {
-
+      show_horizontal_ship(this, current_ship.size);
     }
   });
   $('.sea').on('mouseout', function() {
@@ -63,7 +67,7 @@ $(document).ready(function() {
       show_vertical_ship(this, current_ship.size);
     }
     else {
-
+      show_horizontal_ship(this, current_ship.size);
     }
   });
 
@@ -72,9 +76,11 @@ $(document).ready(function() {
     if (event.which == 32) {
       if (isVertical(current_ship)) {
         clean_grid();
+        show_horizontal_ship($(hover_cell),current_ship.size);
         current_ship.orientation = 'horizontal';}
       else {
-        show_vertical_ship($("#"+hover_cell), current_ship.size);
+        clean_grid();
+        show_vertical_ship($(hover_cell), current_ship.size);
         current_ship.orientation = 'vertical';
       }
     }
@@ -82,45 +88,73 @@ $(document).ready(function() {
   });
 
   //..Placing a ship
-
   $('.sea').on('click', function() {
-    place_ship(this, current_ship.size);
+    if (isVertical(current_ship)) {
+      place_vertical_ship(this, current_ship.size);
+    }
+    else {
+      place_horizontal_ship(this,current_ship.size);
+    }
+    console.log(current_ship.id);
     ship_locations[current_ship.id] = $(this).attr('id');
     current_ship = ships_array.shift();
+    if (ships_array.length === 0) {
+      // Load next page with JSON object of ships locations
+    }
+    show_vertical_ship(this, current_ship.size);
     $('#ship_name').text(current_ship.name);
+    console.log(JSON.stringify(ship_locations));
   });
 
 
   // Functions
 
-  // I feel like now that I've added grid ID's to each cell,
-  // I no longer have to iterate over the grid..
-
   var isVertical = function(ship) {
     return ship.orientation === 'vertical';
-  }
+  };
 
-  var show_vertical_ship = function(cell, ship_size) {
+  var isSame = function (cell, gridCell) {
+    return $(cell).attr('id') === $(gridCell).attr('id');
+  };
+
+  // Place_vertical_ship should just call this function,
+  // and somehow just change class to permaboat instead
+  // of boat.
+
+  var show_vertical_ship = function(cell, shipSize, beingPlaced) {
+    var boat = ""
+    beingPlaced ? boat = 'permaboat' : boat = 'boat'
     for (var i=0;i<grid.length;i++) {
-      if ($(cell).attr('id') === $(grid[i]).attr('id')) {
-        for (var j=0;j<ship_size;j++) {
+      if (isSame(cell, grid[i])) {
+        for (var j=0;j<shipSize;j++) {
           $(grid[i-j*10]).toggleClass('sea');
-          $(grid[i-j*10]).toggleClass('boat');
+          $(grid[i-j*10]).toggleClass(boat);
         }
       }
     }
   }; // end show_vertical_ship
 
-  var place_ship = function(cell, ship_size) {
+  var show_horizontal_ship = function(cell, shipSize, beingPlaced) {
+    var boat = ""
+    beingPlaced ? boat = 'permaboat' : boat = 'boat'
     for (var i=0;i<grid.length;i++) {
-      if (cell === grid[i]) {
-        for (var j=0;j<ship_size;j++) {
-          $(grid[i-j*10]).toggleClass('sea');
-          $(grid[i-j*10]).toggleClass('permaboat');
+      if (isSame(cell, grid[i])) {
+        for (var j=0;j<shipSize;j++) {
+          $(grid[i+j]).toggleClass('sea');
+          $(grid[i+j]).toggleClass(boat);
         }
       }
     }
-  }; // end place_ship
+  }; // end show_horizontal_ship
+
+  var place_vertical_ship = function(cell, shipSize) {
+    show_vertical_ship(cell, shipSize, true);
+  };
+
+  var place_horizontal_ship = function (cell, shipSize) {
+    show_horizontal_ship(cell, shipSize, true);
+  };
+
 
   var clean_grid = function() {
     for (var i=0;i<grid.length;i++) {
